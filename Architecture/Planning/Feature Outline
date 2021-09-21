@@ -1,0 +1,106 @@
+Idea:
+I would like a library that I can use to export data to an Excel worksheet quickly without needing to get into the implementation details of Apache POI in the program using this library. 
+
+Name:
+ExcelExportHelper
+
+Technologies:
+Java, Apache POI
+
+Stories;
+----------------------
+Summary: 
+Set File Name
+
+Description: 
+As a user, I would like an API that can set a file name for the Excel file to be exported. 
+
+Acceptance Criteria:
+There is an API to set the file name. 
+The file name is an absolute file path. 
+
+----------------------
+Summary: 
+Set Sheet Cell Data
+
+Description:
+As a user, I would like an API that set data for an Excel worksheet. 
+
+Acceptance Criteria:
+Provides a sheet object to the code using the library to be populated with user data.
+The sheet object has an API that is a list of list of strings for the user to fill with cell data.
+
+----------------------
+Summary: 
+Set Name of Sheet
+
+Description:
+As a user, I would like to be able to set the name for the worksheet. 
+
+Acceptance Criteria:
+The sheet object contains an API to set the name of the sheet. 
+
+----------------------
+Summary: 
+Set Column Headers
+
+Description:
+As a user, I would like to be able to set column headers, if any are needed. 
+
+Acceptance Criteria:
+There is an API to set column headers on the sheet.
+The data is stored in a list of strings. 
+If the column header list is empty, then no headers are set on the worksheet.
+Column headers are set in a bold font.
+
+----------------------
+Summary: 
+Write File
+
+Description:
+As a user, I would like an API to perform the file writing after the data is set. 
+
+Acceptance Criteria:
+There is an API to trigger the file writing operations.
+An Excel file is generated and can be opened in MS Excel.
+
+Comments:
+Must be done after set file name.
+Must be done before setting sheet cell data and header stories.
+
+----------------------
+Summary: 
+Set Numerical Data as Numbers
+
+Description:
+As a user, I would like cell data to be parsed to numbers where able. 
+
+Acceptance Criteria:
+Cells that appear to contain numbers are parsed to integers or doubles and set as a number in the cell.
+
+----------------------
+Summary: 
+TK
+
+Description:
+TK
+
+Acceptance Criteria:
+TK
+
+----------------------
+Summary: 
+TK
+
+Description:
+TK
+
+Acceptance Criteria:
+TK
+
+----------------------
+
+
+
+
+
