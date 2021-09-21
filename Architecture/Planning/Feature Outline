@@ -63,6 +63,7 @@ As a user, I would like an API to perform the file writing after the data is set
 Acceptance Criteria:
 There is an API to trigger the file writing operations.
 An Excel file is generated and can be opened in MS Excel.
+If sheet names have identical names, then the subsequent identical names are appended with a trailing incrementing number.  
 
 Comments:
 Must be done after set file name.
