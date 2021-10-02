@@ -508,6 +508,191 @@
 							"width": 144,
 							"height": 208,
 							"text": "Calling the createSheet method returns a Sheet object, and adds new sheet to an internal private list of sheets in this class. \n\nMost or all of the use of Apache POI will fall under the functionality of writing the file. "
+						},
+						{
+							"_type": "UMLClassView",
+							"_id": "AAAAAAF8JHXfYxHtMGI=",
+							"_parent": {
+								"$ref": "AAAAAAFF+qBtyKM79qY="
+							},
+							"model": {
+								"$ref": "AAAAAAF8JHXfYRHr17Y="
+							},
+							"subViews": [
+								{
+									"_type": "UMLNameCompartmentView",
+									"_id": "AAAAAAF8JHXfYxHuexc=",
+									"_parent": {
+										"$ref": "AAAAAAF8JHXfYxHtMGI="
+									},
+									"model": {
+										"$ref": "AAAAAAF8JHXfYRHr17Y="
+									},
+									"subViews": [
+										{
+											"_type": "LabelView",
+											"_id": "AAAAAAF8JHXfYxHvLQE=",
+											"_parent": {
+												"$ref": "AAAAAAF8JHXfYxHuexc="
+											},
+											"visible": false,
+											"font": "Arial;13;0",
+											"height": 13
+										},
+										{
+											"_type": "LabelView",
+											"_id": "AAAAAAF8JHXfYxHwlE4=",
+											"_parent": {
+												"$ref": "AAAAAAF8JHXfYxHuexc="
+											},
+											"font": "Arial;13;1",
+											"left": 389,
+											"top": 271,
+											"width": 91.41259765625,
+											"height": 13,
+											"text": "EEHException"
+										},
+										{
+											"_type": "LabelView",
+											"_id": "AAAAAAF8JHXfYxHx1DY=",
+											"_parent": {
+												"$ref": "AAAAAAF8JHXfYxHuexc="
+											},
+											"visible": false,
+											"font": "Arial;13;0",
+											"width": 73.67724609375,
+											"height": 13,
+											"text": "(from Model)"
+										},
+										{
+											"_type": "LabelView",
+											"_id": "AAAAAAF8JHXfYxHyfLo=",
+											"_parent": {
+												"$ref": "AAAAAAF8JHXfYxHuexc="
+											},
+											"visible": false,
+											"font": "Arial;13;0",
+											"height": 13,
+											"horizontalAlignment": 1
+										}
+									],
+									"font": "Arial;13;0",
+									"left": 384,
+									"top": 264,
+									"width": 101.41259765625,
+									"height": 25,
+									"stereotypeLabel": {
+										"$ref": "AAAAAAF8JHXfYxHvLQE="
+									},
+									"nameLabel": {
+										"$ref": "AAAAAAF8JHXfYxHwlE4="
+									},
+									"namespaceLabel": {
+										"$ref": "AAAAAAF8JHXfYxHx1DY="
+									},
+									"propertyLabel": {
+										"$ref": "AAAAAAF8JHXfYxHyfLo="
+									}
+								},
+								{
+									"_type": "UMLAttributeCompartmentView",
+									"_id": "AAAAAAF8JHXfYxHzx0o=",
+									"_parent": {
+										"$ref": "AAAAAAF8JHXfYxHtMGI="
+									},
+									"model": {
+										"$ref": "AAAAAAF8JHXfYRHr17Y="
+									},
+									"subViews": [
+										{
+											"_type": "UMLAttributeView",
+											"_id": "AAAAAAF8JHY3LhIYA1U=",
+											"_parent": {
+												"$ref": "AAAAAAF8JHXfYxHzx0o="
+											},
+											"model": {
+												"$ref": "AAAAAAF8JHY3HhIVE+Q="
+											},
+											"font": "Arial;13;0",
+											"left": 389,
+											"top": 294,
+											"width": 91.41259765625,
+											"height": 13,
+											"text": "+EEHException",
+											"horizontalAlignment": 0
+										}
+									],
+									"font": "Arial;13;0",
+									"left": 384,
+									"top": 289,
+									"width": 101.41259765625,
+									"height": 23
+								},
+								{
+									"_type": "UMLOperationCompartmentView",
+									"_id": "AAAAAAF8JHXfYxH0eLs=",
+									"_parent": {
+										"$ref": "AAAAAAF8JHXfYxHtMGI="
+									},
+									"model": {
+										"$ref": "AAAAAAF8JHXfYRHr17Y="
+									},
+									"font": "Arial;13;0",
+									"left": 384,
+									"top": 312,
+									"width": 101.41259765625,
+									"height": 10
+								},
+								{
+									"_type": "UMLReceptionCompartmentView",
+									"_id": "AAAAAAF8JHXfYxH1Ii0=",
+									"_parent": {
+										"$ref": "AAAAAAF8JHXfYxHtMGI="
+									},
+									"model": {
+										"$ref": "AAAAAAF8JHXfYRHr17Y="
+									},
+									"visible": false,
+									"font": "Arial;13;0",
+									"width": 10,
+									"height": 10
+								},
+								{
+									"_type": "UMLTemplateParameterCompartmentView",
+									"_id": "AAAAAAF8JHXfZBH2t4Q=",
+									"_parent": {
+										"$ref": "AAAAAAF8JHXfYxHtMGI="
+									},
+									"model": {
+										"$ref": "AAAAAAF8JHXfYRHr17Y="
+									},
+									"visible": false,
+									"font": "Arial;13;0",
+									"width": 10,
+									"height": 10
+								}
+							],
+							"font": "Arial;13;0",
+							"containerChangeable": true,
+							"left": 384,
+							"top": 264,
+							"width": 101.41259765625,
+							"height": 58,
+							"nameCompartment": {
+								"$ref": "AAAAAAF8JHXfYxHuexc="
+							},
+							"attributeCompartment": {
+								"$ref": "AAAAAAF8JHXfYxHzx0o="
+							},
+							"operationCompartment": {
+								"$ref": "AAAAAAF8JHXfYxH0eLs="
+							},
+							"receptionCompartment": {
+								"$ref": "AAAAAAF8JHXfYxH1Ii0="
+							},
+							"templateParameterCompartment": {
+								"$ref": "AAAAAAF8JHXfZBH2t4Q="
+							}
 						}
 					]
 				},
@@ -553,7 +738,8 @@
 								"$ref": "AAAAAAF8BfJ5hscCk8c="
 							},
 							"name": "Sheets",
-							"visibility": "private"
+							"visibility": "private",
+							"type": ""
 						}
 					]
 				},
@@ -591,6 +777,24 @@
 							},
 							"name": "setSheetName",
 							"type": "void"
+						}
+					]
+				},
+				{
+					"_type": "UMLClass",
+					"_id": "AAAAAAF8JHXfYRHr17Y=",
+					"_parent": {
+						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
+					},
+					"name": "EEHException",
+					"attributes": [
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAF8JHY3HhIVE+Q=",
+							"_parent": {
+								"$ref": "AAAAAAF8JHXfYRHr17Y="
+							},
+							"name": "EEHException"
 						}
 					]
 				}

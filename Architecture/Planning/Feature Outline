@@ -7,17 +7,23 @@ ExcelExportHelper
 Technologies:
 Java, Apache POI
 
+JIRA:
+https://horvath-dev.atlassian.net/jira/software/projects/EEH/boards/1
+
 Stories;
 ----------------------
 Summary: 
 Set File Name
 
 Description: 
-As a user, I would like an API that can set a file name for the Excel file to be exported. 
+As a user, I would like an API that can set a file name for the Excel file to be exported, so that I can create a new excel file. 
 
 Acceptance Criteria:
 There is an API to set the file name. 
-The file name is an absolute file path. 
+The file name is an absolute file path. (not sure if this makes sense)
+If the file name is greater than 31 characters, then the file name is truncated. 
+The specified directory location is writable. 
+If the specified directory location is not writable, then an exception is thrown.
 
 ----------------------
 Summary: 
@@ -32,13 +38,15 @@ The sheet object has an API that is a list of list of strings for the user to fi
 
 ----------------------
 Summary: 
-Set Name of Sheet
+Create a Sheet
 
 Description:
-As a user, I would like to be able to set the name for the worksheet. 
+As a user, I would like to be able to create a work sheet and set its name.
 
 Acceptance Criteria:
-The sheet object contains an API to set the name of the sheet. 
+There is an API to create a sheet that takes a name for the sheet.
+The sheet object contains an API to create a sheet and set the name of the sheet. 
+If the sheet name contains illegal characters, then an exception is thrown. 
 
 ----------------------
 Summary: 
@@ -63,7 +71,8 @@ As a user, I would like an API to perform the file writing after the data is set
 Acceptance Criteria:
 There is an API to trigger the file writing operations.
 An Excel file is generated and can be opened in MS Excel.
-If sheet names have identical names, then the subsequent identical names are appended with a trailing incrementing number.  
+If sheet names have identical names, then the subsequent identical names are appended with a trailing incrementing number.
+If the user attempts to write a workbook to a file with no sheets in the workbook, then an exception is thrown.
 
 Comments:
 Must be done after set file name.
@@ -81,23 +90,23 @@ Cells that appear to contain numbers are parsed to integers or doubles and set a
 
 ----------------------
 Summary: 
-TK
+Parse Hyperlinks
 
 Description:
-TK
+As a user, if the provided contents of a cell is a string of plain text is a parsable URL, then I would like that URL to set as a hyperlink within the cell.
 
 Acceptance Criteria:
-TK
+A cell of text that is a web address is set as a hyperlink in the cell.
 
 ----------------------
 Summary: 
-TK
+Sample Code
 
 Description:
-TK
+As a user, I would like to see some sample code that demonstrates the use of the EEH in practice. 
 
 Acceptance Criteria:
-TK
+Sample code exists that demonstrates the core feature set of the EEH.
 
 ----------------------
 
