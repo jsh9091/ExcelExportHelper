@@ -4,10 +4,7 @@
 
 package com.horvath.excelexporthelper;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
+import org.junit.Assert;
 import org.junit.Test;
 
 public class FileUtilityTest {
@@ -19,7 +16,7 @@ public class FileUtilityTest {
 		
 		final String actual = FileUtility.validateFileName(longFileName);
 
-		assertEquals(31, actual.length());
+		Assert.assertEquals(31, actual.length());
 	}
 	
 	@Test 
@@ -27,7 +24,7 @@ public class FileUtilityTest {
 		final String noSuffix = "filename";
 		final String actual = FileUtility.validateFileName(noSuffix);
 		
-		assertEquals(noSuffix + FileUtility.EXCEL_SUFFIX, actual); 
+		Assert.assertEquals(noSuffix + FileUtility.EXCEL_SUFFIX, actual); 
 	}
 	
 	@Test
@@ -35,7 +32,7 @@ public class FileUtilityTest {
 		final String wrongSuffix = "filename.pdf";
 		final String actual = FileUtility.validateFileName(wrongSuffix);
 		
-		assertEquals(wrongSuffix + FileUtility.EXCEL_SUFFIX, actual); 
+		Assert.assertEquals(wrongSuffix + FileUtility.EXCEL_SUFFIX, actual); 
 	}
 	
 	@Test 
@@ -44,11 +41,11 @@ public class FileUtilityTest {
 		
 		try {
 			FileUtility.validateFileName("");
-			fail(); // should not get here
+			Assert.fail(); // should not get here
 		} catch (EEHException ex) {
 			catchException = true;
 		}
-		assertTrue(catchException);
+		Assert.assertTrue(catchException);
 	}
 	
 	@Test
@@ -57,10 +54,10 @@ public class FileUtilityTest {
 		
 		try {
 			new ExcelExportHelper("");
-			fail(); // should not get here
+			Assert.fail(); // should not get here
 		} catch (IllegalArgumentException ex) {
 			catchException = true;
 		}
-		assertTrue(catchException);
+		Assert.assertTrue(catchException);
 	}
 }
