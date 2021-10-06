@@ -10,7 +10,8 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 
 @Suite.SuiteClasses({
-   AppTest.class
+   AppTest.class,
+   FileUtilityTest.class
 })
 
 public class EEHTestSuite { }
