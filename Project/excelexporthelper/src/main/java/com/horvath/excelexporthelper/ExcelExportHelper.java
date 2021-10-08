@@ -31,6 +31,7 @@ final public class ExcelExportHelper {
 		
 		try {
 			fileName = FileUtility.validateFileName(fileName);
+			FileUtility.testFileLocationWriteable(file);
 		} catch (EEHException e) {
 			throw new IllegalArgumentException(e.getMessage());
 		}

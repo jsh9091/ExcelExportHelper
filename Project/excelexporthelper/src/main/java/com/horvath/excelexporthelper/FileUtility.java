@@ -4,6 +4,8 @@
 
 package com.horvath.excelexporthelper;
 
+import java.io.File;
+
 final class FileUtility {
 	
 	public static final String EXCEL_SUFFIX = ".xlsx";
@@ -58,4 +60,18 @@ final class FileUtility {
 		return filename;
 	}
 
+	/**
+	 * Tests that file location is 
+	 * @param file File
+	 * @throws EEHException
+	 */
+	protected static void testFileLocationWriteable(File file) throws EEHException {
+		File location = new File(file.getParent());
+
+		// if location is not writable 
+		if (!location.canWrite() || !file.canWrite()) {
+			throw new EEHException("File must be at a location with write permission.");
+		}
+	}
+	
 }

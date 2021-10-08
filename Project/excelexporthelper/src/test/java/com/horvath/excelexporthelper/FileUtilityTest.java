@@ -4,6 +4,8 @@
 
 package com.horvath.excelexporthelper;
 
+import java.io.File;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -59,5 +61,39 @@ public class FileUtilityTest {
 			catchException = true;
 		}
 		Assert.assertTrue(catchException);
+	}
+	
+	@Test
+	public void testFileLocationWriteable_ValidLocation_Nothing() {
+		String userdir = System.getProperty("user.dir");
+		File file = new File(userdir);
+
+		try {
+			FileUtility.testFileLocationWriteable(file);
+		} catch (EEHException e) {
+			e.printStackTrace();
+			Assert.fail(); // should not get here
+		}
+	}
+	
+	@Test
+	public void testFileLocationWriteable_InvalidLocation_Exception() {
+		boolean catchException = false; 
+
+		String userdir = System.getProperty("user.dir");
+		File file = new File(userdir + File.separator + "TestDir_FileUtility");
+		
+		Assert.assertTrue(file.mkdir());
+		Assert.assertTrue(file.setReadOnly());
+
+		try {
+			FileUtility.testFileLocationWriteable(file);
+			Assert.fail(); // should not get here
+		} catch (EEHException e) {
+			catchException = true;
+		}
+
+		Assert.assertTrue(catchException);
+		Assert.assertTrue(file.delete());
 	}
 }
