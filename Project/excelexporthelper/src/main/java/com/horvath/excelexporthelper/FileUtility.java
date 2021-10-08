@@ -6,9 +6,17 @@ package com.horvath.excelexporthelper;
 
 import java.io.File;
 
+/**
+ * Utility class for file operations. 
+ * @author jhorvath
+ */
 final class FileUtility {
 	
-	public static final String EXCEL_SUFFIX = ".xlsx";
+	private FileUtility() {}
+	
+	protected static final String EXCEL_SUFFIX = ".xlsx";
+	protected static final String EXCEPTION_WRITE_PERMISSION = "File must be at a location with write permission.";
+	protected static final String EXCEPTION_EMPTY_STRING = "File name must not be empty.";
 	
 	/**
 	 * Ensures that the name of the file is valid.
@@ -19,7 +27,7 @@ final class FileUtility {
 	protected static String validateFileName(String filename) throws EEHException {
 		
 		if (filename.isEmpty()) {
-			throw new EEHException("File name must not be empty.");
+			throw new EEHException(EXCEPTION_EMPTY_STRING);
 		}			
 		
 		filename = checkFileNameLength(filename);
@@ -70,7 +78,7 @@ final class FileUtility {
 
 		// if location is not writable 
 		if (!location.canWrite() || !file.canWrite()) {
-			throw new EEHException("File must be at a location with write permission.");
+			throw new EEHException(EXCEPTION_WRITE_PERMISSION);
 		}
 	}
 	
