@@ -17,6 +17,7 @@ final class FileUtility {
 	protected static final String EXCEL_SUFFIX = ".xlsx";
 	protected static final String EXCEPTION_WRITE_PERMISSION = "File must be at a location with write permission.";
 	protected static final String EXCEPTION_EMPTY_STRING = "File name must not be empty.";
+	protected static final int FILENAME_MAX_LENGTH = 31;
 	
 	/**
 	 * Ensures that the name of the file is valid.
@@ -44,7 +45,7 @@ final class FileUtility {
 	 */
 	private static String checkFileNameLength(String filename) {
 		// ensure that there is room the file suffix in length of the name
-		final int maxlength = 31 - EXCEL_SUFFIX.length();
+		final int maxlength = FILENAME_MAX_LENGTH - EXCEL_SUFFIX.length();
 		
 		if (filename.length() > maxlength) {
 			// Truncate the name of the file

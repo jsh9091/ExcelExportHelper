@@ -7,6 +7,10 @@ package com.horvath.excelexporthelper;
 import java.io.File;
 import java.util.List;
 
+/**
+ * Main class for EEH operations. 
+ * @author jhorvath
+ */
 final public class ExcelExportHelper {
 
 	List<EEHSheet> sheets;

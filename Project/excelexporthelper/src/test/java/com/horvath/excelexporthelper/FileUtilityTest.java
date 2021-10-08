@@ -18,7 +18,7 @@ public class FileUtilityTest {
 		
 		final String actual = FileUtility.validateFileName(longFileName);
 
-		Assert.assertEquals(31, actual.length());
+		Assert.assertEquals(FileUtility.FILENAME_MAX_LENGTH, actual.length());
 	}
 	
 	@Test 
@@ -48,50 +48,6 @@ public class FileUtilityTest {
 			catchException = true;
 		}
 		Assert.assertTrue(catchException);
-	}
-	
-	@Test
-	public void ExcelExportHelper_emptyString_IllegalArgumentException() {
-		// TODO: move this to another class
-		boolean catchException = false; 
-		
-		try {
-			new ExcelExportHelper("");
-			Assert.fail(); // should not get here
-		} catch (IllegalArgumentException actual) {
-			catchException = true;
-			Assert.assertEquals(FileUtility.EXCEPTION_EMPTY_STRING, actual.getMessage());
-		}
-		Assert.assertTrue(catchException);
-	}
-	
-	@Test
-	public void ExcelExportHelper_NonWritableLocation_IllegalArgumentException() {
-		// TODO: move this to another class
-		boolean catchException = false; 
-
-		String userdir = System.getProperty("user.dir");
-		File file = new File(userdir + File.separator + "TestDir_ExcelExportHelper");
-		
-		if (file.exists()) {
-			// cleanup after a failed run
-			file.delete();
-		}
-		
-		Assert.assertTrue(file.mkdir());
-		Assert.assertTrue(file.setReadOnly());
-		
-
-		try {
-			new ExcelExportHelper(file.getAbsolutePath());
-			Assert.fail(); // should not get here
-		} catch (IllegalArgumentException actual) {
-			catchException = true;
-			Assert.assertEquals(FileUtility.EXCEPTION_WRITE_PERMISSION, actual.getMessage());
-		}
-
-		Assert.assertTrue(catchException);
-		Assert.assertTrue(file.delete());
 	}
 
 	@Test
