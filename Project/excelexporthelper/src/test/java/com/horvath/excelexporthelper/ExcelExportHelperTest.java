@@ -52,4 +52,23 @@ public class ExcelExportHelperTest {
 		Assert.assertTrue(file.delete());
 	}
 
+	@Test
+	public void createSheet_EmptyString_IllegalArgumentException() {
+		
+	}
+
+	@Test
+	public void createSheet_NullString_IllegalArgumentException() {
+		
+	}
+	
+	@Test
+	public void createSheet_ValidName_SheetReturned() {
+		
+	}
+	
+	@Test
+	public void createSheet_MultipeSheets_SheetAdded() {
+		
+	}
 }

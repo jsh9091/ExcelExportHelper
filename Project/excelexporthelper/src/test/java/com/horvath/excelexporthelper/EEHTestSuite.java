@@ -11,7 +11,8 @@ import org.junit.runners.Suite;
 
 @Suite.SuiteClasses({
    FileUtilityTest.class,
-   ExcelExportHelperTest.class
+   ExcelExportHelperTest.class,
+   EEHSheetTest.class
 })
 
 public class EEHTestSuite { }

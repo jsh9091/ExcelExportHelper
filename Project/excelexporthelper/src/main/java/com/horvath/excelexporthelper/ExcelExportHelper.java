@@ -5,6 +5,7 @@
 package com.horvath.excelexporthelper;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -41,6 +42,18 @@ final public class ExcelExportHelper {
 		}
 
 		this.file = new File(parent + File.separator + fileName);
+		this.sheets = new ArrayList<>();
+	}
+	
+	public EEHSheet createSheet(String sheetName) {
+		EEHSheet sheet = null;
+		try {
+			sheet = new EEHSheet(sheetName, this.sheets);
+			this.sheets.add(sheet);
+		} catch (EEHException e) {
+			throw new IllegalArgumentException(e.getMessage());
+		}
+		return sheet;
 	}
 	
 	public File getFile() {
