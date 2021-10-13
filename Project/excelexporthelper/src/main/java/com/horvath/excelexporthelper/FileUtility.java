@@ -78,7 +78,7 @@ final class FileUtility {
 		File location = new File(file.getParent());
 
 		// if location is not writable 
-		if (!location.canWrite() || !file.canWrite()) {
+		if (!location.canWrite()) {
 			throw new EEHException(EXCEPTION_WRITE_PERMISSION);
 		}
 	}

@@ -68,16 +68,18 @@ public class FileUtilityTest {
 		boolean catchException = false; 
 
 		String userdir = System.getProperty("user.dir");
-		File file = new File(userdir + File.separator + "TestDir_FileUtility");
+		File folder = new File(userdir + File.separator + "TestDir_FileUtility");
 		
-		if (file.exists()) {
+		if (folder.exists()) {
 			// cleanup after a failed run
-			file.delete();
+			folder.delete();
 		}
 		
-		Assert.assertTrue(file.mkdir());
-		Assert.assertTrue(file.setReadOnly());
+		Assert.assertTrue(folder.mkdir());
+		Assert.assertTrue(folder.setReadOnly());
 
+		File file = new File(folder.getAbsolutePath() + File.separator + "Test.xlsx");
+		
 		try {
 			FileUtility.testFileLocationWriteable(file);
 			Assert.fail(); // should not get here
@@ -87,6 +89,6 @@ public class FileUtilityTest {
 		}
 
 		Assert.assertTrue(catchException);
-		Assert.assertTrue(file.delete());
+		Assert.assertTrue(folder.delete());
 	}
 }
