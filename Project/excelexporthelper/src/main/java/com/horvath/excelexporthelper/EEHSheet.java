@@ -20,6 +20,16 @@ final class EEHSheet {
 	public static String EXCEPTION_EMPTY_OR_NULL_SHEETNAME = "Sheet name not be null or empty.";
 	
 	/**
+	 * The maximum number of sheets allowed in an Excel file.
+	 */
+	public static int MAX_SHEET_COUNT = 255;
+	
+	/**
+	 * The maximum number of characters allowed in a sheet name.
+	 */
+	public static int MAX_NAME_LENGTH = 31;
+	
+	/**
 	 * Constructor for a sheet. 
 	 * @param sheetName String Name for the sheet. 
 	 * @param sheets List<EEHSheet> Existing sheets in current instance. 
@@ -71,10 +81,15 @@ final class EEHSheet {
 	 * @return String 
 	 */
 	private String fixDuplicateName(String sheetName, List<String> currentSheetNames, int count) {
+		// update the name
+		sheetName = sheetName + count;
 		
+		// verify that the updated name doesn't already exist in the instance
 		if (currentSheetNames.contains(sheetName)) {
-			
-			return fixDuplicateName(sheetName + count, currentSheetNames, ++count);
+			if (count > MAX_SHEET_COUNT) {
+				// recurse 
+				return fixDuplicateName(sheetName + count, currentSheetNames, ++count);
+			}
 		}
 			
 		return sheetName;
