@@ -5,7 +5,7 @@
 package com.horvath.excelexporthelper;
 
 import java.util.ArrayList;
-
+import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -119,10 +119,79 @@ public class EEHSheetTest {
 	@Test
 	public void EEHSheet_DuplicateName_NameIncremented() { 
 		
+		final String sheetName = "Duplicate";
+		try {
+			List<EEHSheet> sheets = new ArrayList<>(2);
+			
+			EEHSheet sheet = new EEHSheet(sheetName, sheets);
+			sheets.add(sheet);
+			
+			EEHSheet sheet2 = new EEHSheet(sheetName, sheets);
+			sheets.add(sheet2);
+			
+			Assert.assertEquals(2, sheets.size());
+			
+			Assert.assertEquals(sheetName, sheet.getSheetName());
+			Assert.assertEquals(sheetName + "1", sheet2.getSheetName());
+			
+		} catch (EEHException e) {
+			Assert.fail();
+		}
 	}
 	
 	@Test
 	public void EEHSheet_DuplicateNameX5_NameIncremented() { 
 		
+		final String sheetName = "Dup";
+		final int limit = 5;
+		
+		try {
+			List<EEHSheet> sheets = new ArrayList<>(5);
+			
+			// create five sheets with the same name
+			for (int i = 0; i < limit; i++) {
+				EEHSheet sheet = new EEHSheet(sheetName, sheets);
+				sheets.add(sheet);
+			}
+						
+			Assert.assertEquals(limit, sheets.size());
+						
+			// verify that the names of the sheets after the first one have incremented names
+			for (int i = 0; i < sheets.size(); i++) {
+				if (i == 0) {
+					Assert.assertEquals(sheetName, sheets.get(i).getSheetName());
+				} else {
+					Assert.assertEquals(sheetName + i, sheets.get(i).getSheetName());
+				}
+			}
+			
+		} catch (EEHException e) {
+			Assert.fail();
+		}
 	}
+	
+	@Test
+	public void EEHSheet_DuplicateNameTooManySheets_NameIncremented() { 
+
+		boolean caughtException = false;
+		final String sheetName = "MaxDup";
+		final int controlLimit = 2;
+		
+		try {
+			List<EEHSheet> sheets = new ArrayList<>(EEHSheet.MAX_SHEET_COUNT + controlLimit);
+			
+			// create many sheets with the same name
+			for (int i = 0; i < EEHSheet.MAX_SHEET_COUNT + controlLimit; i++) {
+				EEHSheet sheet = new EEHSheet(sheetName, sheets);
+				sheets.add(sheet);
+			}
+			Assert.fail(); // should not get here
+
+		} catch (EEHException actual) {
+			caughtException = true;
+			Assert.assertEquals(EEHSheet.EXCEPTION_MAX_NUMBER_SHEETS_EXCEEDED, actual.getMessage());
+		}
+		Assert.assertTrue(caughtException);
+	}
+	
 }

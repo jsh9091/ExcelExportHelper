@@ -29,19 +29,9 @@ public class ExcelExportHelperTest {
 	public void ExcelExportHelper_NonWritableLocation_IllegalArgumentException() {
 		boolean caughtException = false; 
 
-		String userdir = System.getProperty("user.dir");
-		File folder = new File(userdir + File.separator + "TestDir_ExcelExportHelper");
+		File file = TestUtility.createValidFile("TestDir_ExcelExportHelper", "BadLocation.xlsx");
+		Assert.assertTrue(file.getParentFile().setReadOnly());
 		
-		if (folder.exists()) {
-			// cleanup after a failed run
-			folder.delete();
-		}
-		
-		Assert.assertTrue(folder.mkdir());
-		Assert.assertTrue(folder.setReadOnly());
-		
-		File file = new File(folder.getAbsolutePath() + File.separator + "Test.xlsx");
-
 		try {
 			new ExcelExportHelper(file.getAbsolutePath());
 			Assert.fail(); // should not get here
@@ -51,7 +41,7 @@ public class ExcelExportHelperTest {
 		}
 
 		Assert.assertTrue(caughtException);
-		Assert.assertTrue(folder.delete());
+		TestUtility.cleanupParentFolder(file);
 	}
 	
 	@Test
@@ -137,6 +127,27 @@ public class ExcelExportHelperTest {
 		} catch (IllegalArgumentException actual) {
 			Assert.fail(); // should not get here
 		}
+		TestUtility.cleanupParentFolder(file);
+	}
+	
+	@Test
+	public void createSheet_TooManySheets_IllegalArgumentException() {
+		boolean caughtException = false; 
+		File file = TestUtility.createValidFile("TooManySheets", "TestToomanySheets.xlsx");
+
+		try {
+			ExcelExportHelper eeh = new ExcelExportHelper(file.getAbsolutePath());
+			
+			for (int i = 0; i < EEHSheet.MAX_SHEET_COUNT + 2; i++) {
+				eeh.createSheet("SheetA");
+			}
+			Assert.fail(); // should not get here
+			
+		} catch (IllegalArgumentException actual) {
+			caughtException = true;
+			Assert.assertEquals(EEHSheet.EXCEPTION_MAX_NUMBER_SHEETS_EXCEEDED, actual.getMessage());
+		}
+		Assert.assertTrue(caughtException);
 		TestUtility.cleanupParentFolder(file);
 	}
 }

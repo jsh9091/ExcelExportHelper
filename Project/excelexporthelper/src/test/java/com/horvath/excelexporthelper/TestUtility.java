@@ -21,6 +21,12 @@ public class TestUtility {
 		String userdir = System.getProperty("user.dir");
 
 		File folder = new File(userdir + File.separator + testDirecory);
+		
+		// if a folder from a failed run exists
+		if (folder.exists()) {
+			Assert.assertTrue(folder.delete());
+		}
+		
 		Assert.assertTrue(folder.mkdir());
 		
 		return new File(folder + File.separator + fileName);
