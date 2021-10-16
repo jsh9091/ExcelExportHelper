@@ -9,6 +9,10 @@ import java.io.File;
 import org.junit.Assert;
 import org.junit.Test;
 
+/**
+ * Unit tests for the main EEH library class. 
+ * @author jhorvath
+ */
 public class ExcelExportHelperTest {
 	
 	@Test
@@ -149,5 +153,50 @@ public class ExcelExportHelperTest {
 		}
 		Assert.assertTrue(caughtException);
 		TestUtility.cleanupParentFolder(file);
+	}
+	
+	@Test
+	public void writeWorkBook_NoSheets_IllegalStateException() {
+		boolean caughtException = false; 
+		File file = TestUtility.createValidFile("NoSheets", "NoSheetsWriteTest.xlsx");
+
+		try {
+			ExcelExportHelper eeh = new ExcelExportHelper(file.getAbsolutePath());
+			eeh.writeWorkBook();
+
+			Assert.fail(); // should not get here
+			
+		} catch (IllegalStateException actual) {
+			caughtException = true;
+			Assert.assertEquals(ExcelExportHelper.EXCEPTION_NO_SHEETS_TO_WRITE, actual.getMessage());
+		} catch (EEHException ex) {
+			Assert.fail();
+		}
+		Assert.assertTrue(caughtException);
+		TestUtility.cleanupParentFolder(file);
+	}
+	
+	@Test
+	public void writeWorkBook_VaildButEmptySheeets_FileWritten() {
+		File file = TestUtility.createValidFile("NamedSheets", "NamedSheetsWriteTest.xlsx");
+
+		try {
+			ExcelExportHelper eeh = new ExcelExportHelper(file.getAbsolutePath());
+			
+			eeh.createSheet("SheetA");
+			eeh.createSheet("SheetB");
+			eeh.createSheet("Sheet*[]C'");
+			
+			eeh.writeWorkBook();
+			
+			Assert.assertTrue(file.exists());
+			
+			TestUtility.compareFileToData(eeh, file);
+
+		} catch (EEHException ex) {
+			Assert.fail();
+		}
+		TestUtility.cleanupParentFolder(file);
+
 	}
 }

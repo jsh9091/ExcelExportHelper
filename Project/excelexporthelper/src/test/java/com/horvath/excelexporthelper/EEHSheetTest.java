@@ -75,11 +75,19 @@ public class EEHSheetTest {
 	@Test 
 	public void EEHSheet_IllegalCharacters_Fixed() {
 		// these characters are not allowed in an Excel sheet name
-		final char[] illegalChars = { '\\', '/', '?', '*', '[', ']' };
-
+		final char[] illegalChars = { '\\', '/', '?', '*', '[', ']', ':' };
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append("'"); // illegal character at start of name
+		sb.append("This");
+		for (int i = 0; i < illegalChars.length; i++) {
+			sb.append(illegalChars[i]);
+		}
+		sb.append("name is bad.");
+		sb.append("'"); // illegal character at end of name
+		
 		// NOTE: the illegal name does not already use the replacement character
-		final String illegalName = "'This" + illegalChars[0] + illegalChars[1] + illegalChars[2] + illegalChars[3]
-				+ illegalChars[4] + illegalChars[5] + "name is bad.'";
+		final String illegalName = sb.toString();
 		
 		try {
 			EEHSheet sheet = new EEHSheet(illegalName, new ArrayList<EEHSheet>());

@@ -72,7 +72,7 @@ final class EEHSheet {
 			}
 			
 			// if the given name is a duplicate, then fix it
-			result = fixDuplicateName(sheetName, currentSheetNames, 1);
+			result = fixDuplicateName(result, currentSheetNames, 1);
 		}
 		
 		return result;
@@ -100,7 +100,6 @@ final class EEHSheet {
 			
 		return newName;
 	}
-	
 	
 	public String getSheetName() {
 		return this.sheetName;

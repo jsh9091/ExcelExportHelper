@@ -9,13 +9,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Main class for EEH operations. 
+ * Main class for EEH library. 
  * @author jhorvath
  */
 final public class ExcelExportHelper {
 
 	List<EEHSheet> sheets;
 	File file;
+	public static final String EXCEPTION_NO_SHEETS_TO_WRITE = "There are no sheets to write to the file.";
 	
 	/**
 	 * Constructor that accepts a filename with a file path as a string.
@@ -45,6 +46,11 @@ final public class ExcelExportHelper {
 		this.sheets = new ArrayList<>();
 	}
 	
+	/**
+	 * Creates and returns an EEHSheet. 
+	 * @param sheetName String 
+	 * @return EEHSheet
+	 */
 	public EEHSheet createSheet(String sheetName) {
 		EEHSheet sheet = null;
 		try {
@@ -56,7 +62,24 @@ final public class ExcelExportHelper {
 		return sheet;
 	}
 	
+	/**
+	 * Triggers operations for writing the Excel file to disk.
+	 * @throws EEHException
+	 */
+	public void writeWorkBook() throws EEHException {
+		if (this.sheets.isEmpty()) {
+			throw new IllegalStateException(EXCEPTION_NO_SHEETS_TO_WRITE);
+		}
+		
+		EEHExcelFileWriter writer = new EEHExcelFileWriter(this.file, this.sheets);
+		writer.writeFile();
+	}
+	
 	public File getFile() {
 		return this.file;
+	}
+	
+	public List<EEHSheet> getSheets() {
+		return this.sheets;
 	}
 }
