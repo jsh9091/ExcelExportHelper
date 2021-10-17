@@ -5,8 +5,9 @@
 package com.horvath.excelexporthelper;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
 import java.util.List;
 
 import org.apache.poi.ss.usermodel.Cell;
@@ -93,8 +94,8 @@ public class TestUtility {
 		
 		try {
 			workBook.close();
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (IOException ex) {
+            System.err.println(ex.getMessage());
 			Assert.fail();
 		}
 	}
@@ -108,12 +109,12 @@ public class TestUtility {
 		XSSFWorkbook workbook = null;
 		Assert.assertTrue(file.exists());
 		
-		try (FileInputStream fis = new FileInputStream(file)) {
+		try (InputStream is = Files.newInputStream(file.toPath())) {
 			
-			 workbook = new XSSFWorkbook(fis);
+			 workbook = new XSSFWorkbook(is);
 			
-		} catch (IOException e) {
-            e.printStackTrace();
+		} catch (IOException ex) {
+            System.err.println(ex.getMessage());
             Assert.fail();
         } 
 		return workbook;

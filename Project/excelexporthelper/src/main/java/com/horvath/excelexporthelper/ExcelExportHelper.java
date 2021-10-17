@@ -38,8 +38,8 @@ final public class ExcelExportHelper {
 		try {
 			fileName = FileUtility.validateFileName(fileName);
 			FileUtility.testFileLocationWriteable(file);
-		} catch (EEHException e) {
-			throw new IllegalArgumentException(e.getMessage());
+		} catch (EEHException ex) {
+			throw new IllegalArgumentException(ex.getMessage(), ex);
 		}
 
 		this.file = new File(parent + File.separator + fileName);
@@ -56,8 +56,8 @@ final public class ExcelExportHelper {
 		try {
 			sheet = new EEHSheet(sheetName, this.sheets);
 			this.sheets.add(sheet);
-		} catch (EEHException e) {
-			throw new IllegalArgumentException(e.getMessage());
+		} catch (EEHException ex) {
+			throw new IllegalArgumentException(ex.getMessage(), ex);
 		}
 		return sheet;
 	}

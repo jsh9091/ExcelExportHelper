@@ -57,8 +57,8 @@ public class FileUtilityTest {
 
 		try {
 			FileUtility.testFileLocationWriteable(file);
-		} catch (EEHException e) {
-			e.printStackTrace();
+		} catch (EEHException ex) {
+			System.err.println(ex.getMessage());
 			Assert.fail(); // should not get here
 		}
 	}
@@ -72,7 +72,7 @@ public class FileUtilityTest {
 		
 		if (folder.exists()) {
 			// cleanup after a failed run
-			folder.delete();
+			Assert.assertTrue(folder.delete());
 		}
 		
 		Assert.assertTrue(folder.mkdir());

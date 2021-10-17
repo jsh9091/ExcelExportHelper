@@ -5,9 +5,9 @@
 package com.horvath.excelexporthelper;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.file.Files;
 import java.util.List;
 
 import org.apache.poi.ss.usermodel.Cell;
@@ -85,14 +85,13 @@ public class EEHExcelFileWriter {
 	 */
 	private void generateFile(XSSFWorkbook workbook) throws EEHException {
 		
-        try (FileOutputStream outputStream = new FileOutputStream(this.file)) {
+        try (OutputStream os = Files.newOutputStream(this.file.toPath())) {
         	
-            workbook.write(outputStream);
+            workbook.write(os);
             workbook.close();
             
         } catch (IOException ex) {
-            ex.printStackTrace();
-            throw new EEHException("Unexpected IO exception. " + ex.getMessage());
+            throw new EEHException("Unexpected IO exception. " + ex.getMessage(), ex);
         }
 	}
 

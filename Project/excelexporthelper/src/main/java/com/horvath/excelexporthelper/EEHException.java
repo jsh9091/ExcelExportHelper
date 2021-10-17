@@ -10,10 +10,14 @@ package com.horvath.excelexporthelper;
  */
 public class EEHException extends Exception {
 
+	private static final long serialVersionUID = 5636424200555163709L;
+
 	public EEHException(String string) {
 		super(string);
 	}
 
-	private static final long serialVersionUID = -768447819678859778L;
+	public EEHException(String string, Exception ex) {
+		super(string, ex);
+	}
 
 }

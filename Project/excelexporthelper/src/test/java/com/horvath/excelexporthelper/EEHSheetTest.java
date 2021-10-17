@@ -65,7 +65,7 @@ public class EEHSheetTest {
 			Assert.assertNotNull(sheet);
 			Assert.assertNotEquals(sheetName, sheet.getSheetName());
 			// the name has been truncated to the max sized name for a sheet
-			Assert.assertTrue(sheet.getSheetName().length() == EEHSheet.MAX_NAME_LENGTH);
+			Assert.assertEquals(EEHSheet.MAX_NAME_LENGTH, sheet.getSheetName().length());
 			
 		} catch (EEHException e) {
 			Assert.fail();
