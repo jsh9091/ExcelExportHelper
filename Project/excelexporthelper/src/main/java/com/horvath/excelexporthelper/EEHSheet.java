@@ -16,6 +16,7 @@ import org.apache.poi.ss.util.WorkbookUtil;
 final class EEHSheet {
 	
 	private String sheetName;
+	private List<ArrayList<String>> data;
 	
 	public static String EXCEPTION_EMPTY_OR_NULL_SHEETNAME = "Sheet name not be null or empty.";
 	public static String EXCEPTION_MAX_NUMBER_SHEETS_EXCEEDED = "The maximum number of sheets in an Excel file has been exceeded.";
@@ -43,6 +44,7 @@ final class EEHSheet {
 		}
 		
 		this.sheetName = createSafeSheetName(sheetName, sheets);
+		this.data = new ArrayList<ArrayList<String>>();
 	}
 	
 	/**
@@ -103,6 +105,15 @@ final class EEHSheet {
 	
 	public String getSheetName() {
 		return this.sheetName;
+	}
+
+	public List<ArrayList<String>> getData() {
+		return data;
+	}
+
+	@Override
+	public String toString() {
+		return "EEHSheet [sheetName=" + sheetName + ", data=" + data + "]";
 	}
 
 }

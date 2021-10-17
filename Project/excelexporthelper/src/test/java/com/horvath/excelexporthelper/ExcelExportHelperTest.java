@@ -5,6 +5,7 @@
 package com.horvath.excelexporthelper;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -197,6 +198,48 @@ public class ExcelExportHelperTest {
 			Assert.fail();
 		}
 		TestUtility.cleanupParentFolder(file);
+	}
+	
+	@Test
+	public void writeWorkBook_PopulatedSheeets_FileWritten() {
+		File file = TestUtility.createValidFile("PopulatedSheets", "PopSheetWriteTest.xlsx");
 
+		try {
+			ExcelExportHelper eeh = new ExcelExportHelper(file.getAbsolutePath());
+			
+			EEHSheet sheet = eeh.createSheet("Sheet A");
+			ArrayList<String> data = new ArrayList<>();
+			data.add("One");
+			data.add("Two");
+			data.add("Three");
+			sheet.getData().add(data);
+
+			data = new ArrayList<>();
+			data.add("Four");
+			data.add("Five");
+			data.add("Six");
+			data.add("Seven");
+			sheet.getData().add(data);
+
+			data = new ArrayList<>();
+			data.add("Eight");
+			sheet.getData().add(data);
+			
+			data = new ArrayList<>();
+			data.add("Nine");
+			data.add("Ten");
+			data.add("Eleven");
+			sheet.getData().add(data);
+
+			eeh.writeWorkBook();
+			
+			Assert.assertTrue(file.exists());
+			
+			TestUtility.compareFileToData(eeh, file);
+
+		} catch (EEHException ex) {
+			Assert.fail();
+		}
+		TestUtility.cleanupParentFolder(file);
 	}
 }

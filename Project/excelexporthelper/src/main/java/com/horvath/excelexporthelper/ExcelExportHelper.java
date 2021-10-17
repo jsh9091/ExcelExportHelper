@@ -82,4 +82,10 @@ final public class ExcelExportHelper {
 	public List<EEHSheet> getSheets() {
 		return this.sheets;
 	}
+
+	@Override
+	public String toString() {
+		return "ExcelExportHelper [sheets=" + sheets + ", file=" + file + "]";
+	}
+	
 }

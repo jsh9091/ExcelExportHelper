@@ -10,6 +10,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
@@ -62,7 +64,17 @@ public class EEHExcelFileWriter {
 		
 		XSSFSheet xssfSheet = workbook.createSheet(eehSheet.getSheetName());
 		
-		// TODO: set cell data
+		// set cell data
+		int rowNum = 0;
+		for (List<String> rowData : eehSheet.getData()) {
+            Row row = xssfSheet.createRow(rowNum++);
+
+            int colNum = 0;
+            for (String data : rowData) {
+                Cell cell = row.createCell(colNum++);
+                cell.setCellValue(data);
+            }
+		}
 		
 	}
 	

@@ -7,7 +7,10 @@ package com.horvath.excelexporthelper;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.List;
 
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.junit.Assert;
@@ -126,7 +129,40 @@ public class TestUtility {
 	 */
 	private static void compareSheetData(EEHSheet eehSheet, XSSFSheet xssfSheet) {
 
+		// check the name of the sheets
 		Assert.assertEquals(eehSheet.getSheetName(), xssfSheet.getSheetName());
+
+		// check the row counts
+		Assert.assertEquals(eehSheet.getData().size(), calculateRowCount(xssfSheet));
 		
+		int rowNum = 0;
+		for (List<String> rowData : eehSheet.getData()) {
+			
+            Row row = xssfSheet.getRow(rowNum++);
+
+            int colNum = 0;
+            for (String data : rowData) {
+                Cell cell = row.getCell(colNum++);
+                
+                // compare the cell values
+                Assert.assertEquals(data, cell.getStringCellValue());
+            }
+		}
+	}
+	
+	/**
+	 * Calculate the number of rows in the given XSSFSheet. 
+	 * @param xssfSheet XSSFSheet
+	 * @return int
+	 */
+	private static int calculateRowCount(XSSFSheet xssfSheet) {
+		int rowTotal = xssfSheet.getLastRowNum();
+
+		if ((rowTotal > 0) || (xssfSheet.getPhysicalNumberOfRows() > 0)) {
+		    rowTotal++;
+		} else if (rowTotal < 0) {
+			rowTotal = 0;
+		}
+		return rowTotal;
 	}
 }
