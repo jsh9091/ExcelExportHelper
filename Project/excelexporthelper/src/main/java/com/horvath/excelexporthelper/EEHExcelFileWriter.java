@@ -19,7 +19,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
  * Performs operations for preparing data for Excel file generation.
  * @author jhorvath
  */
-public class EEHExcelFileWriter {
+final public class EEHExcelFileWriter {
 	
 	private File file;
 	private List<EEHSheet> sheets;

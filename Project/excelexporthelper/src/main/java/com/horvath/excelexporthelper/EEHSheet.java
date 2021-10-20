@@ -13,7 +13,7 @@ import org.apache.poi.ss.util.WorkbookUtil;
  * Defines the data for an individual Excel sheet. 
  * @author jhorvath
  */
-final class EEHSheet {
+final public class EEHSheet {
 	
 	private String sheetName;
 	private List<ArrayList<String>> data;
