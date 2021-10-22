@@ -154,11 +154,29 @@ public class TestUtility {
 		Assert.assertEquals(eehSheet.getSheetName(), xssfSheet.getSheetName());
 
 		// check the row counts
-		Assert.assertEquals(eehSheet.getData().size(), calculateRowCount(xssfSheet));
-		
+		if (eehSheet.getHeaders().isEmpty()) {
+			Assert.assertEquals(eehSheet.getData().size(), calculateRowCount(xssfSheet));
+		} else {
+			Assert.assertEquals(eehSheet.getData().size() + 1, calculateRowCount(xssfSheet));
+		}
+
 		int rowNum = 0;
+
+		// if our sheet has header cells
+		if (!eehSheet.getHeaders().isEmpty()) {
+            Row row = xssfSheet.getRow(rowNum++);
+            int colNum = 0;
+
+            for (String header : eehSheet.getHeaders()) {
+                Cell cell = row.getCell(colNum++);
+                
+                // compare the header cell values
+                Assert.assertEquals(header, cell.getStringCellValue());
+			}
+		}
+
+		// compare the sheet data
 		for (List<String> rowData : eehSheet.getData()) {
-			
             Row row = xssfSheet.getRow(rowNum++);
 
             int colNum = 0;

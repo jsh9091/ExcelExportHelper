@@ -262,4 +262,56 @@ public class ExcelExportHelperTest {
 		}
 		TestUtility.cleanupParentFolder(file);
 	}
+	
+	@Test 
+	public void writeWorkBook_HeaderRow_FileWritten() {
+		File file = TestUtility.createValidFile("PHeaderRowWrite", "HeaderRowWriteTest.xlsx");
+
+		try {
+			ExcelExportHelper eeh = new ExcelExportHelper(file.getAbsolutePath());
+			
+			EEHSheet sheet = eeh.createSheet("Header Sheet");
+			ArrayList<String> data = new ArrayList<>();
+			data.add("One");
+			data.add("Two");
+			data.add("Three");
+			sheet.getData().add(data);
+
+			data = new ArrayList<>();
+			data.add("Four");
+			data.add("Five");
+			data.add("Six");
+			data.add("Seven");
+			sheet.getData().add(data);
+
+			data = new ArrayList<>();
+			data.add("Eight");
+			sheet.getData().add(data);
+			
+			data = new ArrayList<>();
+			data.add("Nine");
+			data.add("Ten");
+			data.add("Eleven");
+			sheet.getData().add(data);
+			
+			sheet.getHeaders().add("Col 1");
+			sheet.getHeaders().add("Col Two");
+			sheet.getHeaders().add("Col 3.0");
+			sheet.getHeaders().add("Four");
+			sheet.getHeaders().add("5th Column");
+
+			eeh.writeWorkBook();
+			
+			Assert.assertTrue(file.exists());
+			
+			TestUtility.compareFileToData(eeh, file);
+
+		} catch (EEHException ex) {
+			Assert.fail();
+		}
+		TestUtility.cleanupParentFolder(file);
+	}
+
+		
+		
 }

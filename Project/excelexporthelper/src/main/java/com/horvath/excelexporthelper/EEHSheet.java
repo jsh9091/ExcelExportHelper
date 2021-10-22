@@ -37,6 +37,7 @@ final public class EEHSheet {
 	
 	private String sheetName;
 	private List<ArrayList<String>> data;
+	private List<String> headers;
 	
 	public static String EXCEPTION_EMPTY_OR_NULL_SHEETNAME = "Sheet name not be null or empty.";
 	public static String EXCEPTION_MAX_NUMBER_SHEETS_EXCEEDED = "The maximum number of sheets in an Excel file has been exceeded.";
@@ -65,6 +66,7 @@ final public class EEHSheet {
 		
 		this.sheetName = createSafeSheetName(sheetName, sheets);
 		this.data = new ArrayList<ArrayList<String>>();
+		this.headers = new ArrayList<String>();
 	}
 	
 	/**
@@ -110,7 +112,7 @@ final public class EEHSheet {
 	 */
 	private String fixDuplicateName(String sheetName, List<String> currentSheetNames, int count) {
 		// update the name
-		String newName = sheetName + count;
+		String newName = sheetName + count; // TODO: this seems like a problem, investigate and probably reactor
 		
 		// verify that the updated name doesn't already exist in the instance
 		if (currentSheetNames.contains(newName)) {
@@ -131,9 +133,13 @@ final public class EEHSheet {
 		return data;
 	}
 
+	public List<String> getHeaders() {
+		return headers;
+	}
+
 	@Override
 	public String toString() {
-		return "EEHSheet [sheetName=" + sheetName + ", data=" + data + "]";
+		return "EEHSheet [sheetName=" + sheetName + ", data=" + data + ", headers=" + headers + "]";
 	}
 
 }

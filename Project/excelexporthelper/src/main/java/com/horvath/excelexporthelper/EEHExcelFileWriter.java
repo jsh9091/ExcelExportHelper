@@ -31,6 +31,8 @@ import java.nio.file.Files;
 import java.util.List;
 
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -83,9 +85,28 @@ final public class EEHExcelFileWriter {
 	private void createSheet(EEHSheet eehSheet, XSSFWorkbook workbook) {
 		
 		XSSFSheet xssfSheet = workbook.createSheet(eehSheet.getSheetName());
+		int rowNum = 0;
+		
+		// if we have a header row
+		if (!eehSheet.getHeaders().isEmpty()) {
+            Row row = xssfSheet.createRow(rowNum++);
+            
+            // setup bold style for use in header row cells
+            CellStyle style = workbook.createCellStyle();
+            Font font = workbook.createFont();
+            font.setBold(true);
+            style.setFont(font);
+            
+            int colNum = 0;
+            // set the header row cells
+            for (String header : eehSheet.getHeaders()) {
+                Cell cell = row.createCell(colNum++);
+                cell.setCellValue(header);
+                cell.setCellStyle(style);
+            }
+		}
 		
 		// set cell data
-		int rowNum = 0;
 		for (List<String> rowData : eehSheet.getData()) {
             Row row = xssfSheet.createRow(rowNum++);
 
