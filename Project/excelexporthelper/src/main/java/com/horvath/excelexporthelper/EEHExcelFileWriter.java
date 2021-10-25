@@ -27,12 +27,19 @@ package com.horvath.excelexporthelper;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.util.List;
 
+import org.apache.poi.common.usermodel.HyperlinkType;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.CreationHelper;
 import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.Hyperlink;
+import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -117,6 +124,24 @@ final public class EEHExcelFileWriter {
             	if (canParseDouble(data)) {
         			double num = Double.parseDouble(data);
         			cell.setCellValue(num);
+        			
+            	} else if (canParseUrl(data)) {
+            		// set the URL link data 
+            		CreationHelper createHelper = workbook.getCreationHelper();
+            		Hyperlink link = createHelper.createHyperlink(HyperlinkType.URL);
+            		link.setAddress(data);
+            		
+            		// set style for URL link
+            		CellStyle linkStyle = workbook.createCellStyle();
+            		Font linkFont = workbook.createFont();
+            		linkFont.setUnderline(Font.U_SINGLE);
+            		linkFont.setColor(IndexedColors.BLUE.getIndex());
+            		linkStyle.setFont(linkFont);
+            		
+            		// set the cell 
+            		cell.setCellValue(data);
+            		cell.setHyperlink(link);
+            		cell.setCellStyle(linkStyle);
             		
             	} else {
             		// set data in the cell as a string
@@ -159,6 +184,24 @@ final public class EEHExcelFileWriter {
 			canParseDouble = false;
 		}
 		return canParseDouble;
+	}
+	
+	/**
+	 * Helper method to test if given string value
+	 * can be parsed to a URL address or not.
+	 * @param text String 
+	 * @return boolean 
+	 */
+	private boolean canParseUrl(String text) {
+		boolean canParseUrl = true;
+
+		try {
+			URL url = new URL(text);
+			url.toURI();
+		} catch (URISyntaxException | MalformedURLException ex) {
+			canParseUrl = false;
+		}
+		return canParseUrl;
 	}
 
 }

@@ -357,6 +357,37 @@ public class ExcelExportHelperTest {
 		}
 		TestUtility.cleanupParentFolder(file);
 	}
-		
-		
+	
+	@Test 
+	public void writeWorkBook_UrlSetForCells_FileWritten() {
+		File file = TestUtility.createValidFile("ParseURL", "ParseURLWriteTest.xlsx");
+
+		try {
+			ExcelExportHelper eeh = new ExcelExportHelper(file.getAbsolutePath());
+			
+			EEHSheet sheet = eeh.createSheet("Parse URL Sheet");
+			ArrayList<String> data = new ArrayList<>();
+			data.add("One");
+			data.add("Two");
+			data.add("Three");
+			sheet.getData().add(data);
+
+			data = new ArrayList<>();
+			data.add("https://poi.apache.org/");
+			data.add("https://www.google.com/");
+			data.add("https://slashdot.org/");
+			sheet.getData().add(data);
+
+			eeh.writeWorkBook();
+			
+			Assert.assertTrue(file.exists());
+			
+			TestUtility.compareFileToData(eeh, file);
+
+		} catch (EEHException ex) {
+			Assert.fail();
+		}
+		TestUtility.cleanupParentFolder(file);
+	}
+			
 }

@@ -206,7 +206,7 @@ public class TestUtility {
                 case ERROR:
 
                 default:
-                		break;
+                	break;
                 }
             }
 		}
