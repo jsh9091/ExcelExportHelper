@@ -183,8 +183,31 @@ public class TestUtility {
             for (String data : rowData) {
                 Cell cell = row.getCell(colNum++);
                 
-                // compare the cell values
-                Assert.assertEquals(data, cell.getStringCellValue());
+                // compare actual vs control based on actual cell type
+                switch (cell.getCellType()) {
+                
+                case NUMERIC:
+                	double control = Double.parseDouble(data);
+                	double actual = cell.getNumericCellValue();
+                	Assert.assertEquals(control, actual, 0.0001);
+                	break;
+                	
+                case STRING:
+                    // compare the cell values
+                    Assert.assertEquals(data, cell.getStringCellValue());
+                	break;
+                	
+                case BOOLEAN:
+                	// TODO 
+                	break;
+                	
+                case _NONE:
+                case BLANK:
+                case ERROR:
+
+                default:
+                		break;
+                }
             }
 		}
 	}

@@ -113,7 +113,15 @@ final public class EEHExcelFileWriter {
             int colNum = 0;
             for (String data : rowData) {
                 Cell cell = row.createCell(colNum++);
-                cell.setCellValue(data);
+            	
+            	if (canParseDouble(data)) {
+        			double num = Double.parseDouble(data);
+        			cell.setCellValue(num);
+            		
+            	} else {
+            		// set data in the cell as a string
+                    cell.setCellValue(data);
+            	}
             }
 		}
 		
@@ -134,6 +142,23 @@ final public class EEHExcelFileWriter {
         } catch (IOException ex) {
             throw new EEHException("Unexpected IO exception. " + ex.getMessage(), ex);
         }
+	}
+	
+	/**
+	 * Helper method to test if given string value 
+	 * can be parsed to a numeric value or not.
+	 * @param text String
+	 * @return boolean 
+	 */
+	private boolean canParseDouble(String text) {
+		boolean canParseDouble = true;
+		
+		try {
+			Double.parseDouble(text);
+		} catch (NumberFormatException ex) {
+			canParseDouble = false;
+		}
+		return canParseDouble;
 	}
 
 }

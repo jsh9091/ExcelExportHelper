@@ -265,7 +265,7 @@ public class ExcelExportHelperTest {
 	
 	@Test 
 	public void writeWorkBook_HeaderRow_FileWritten() {
-		File file = TestUtility.createValidFile("PHeaderRowWrite", "HeaderRowWriteTest.xlsx");
+		File file = TestUtility.createValidFile("HeaderRowWrite", "HeaderRowWriteTest.xlsx");
 
 		try {
 			ExcelExportHelper eeh = new ExcelExportHelper(file.getAbsolutePath());
@@ -312,6 +312,51 @@ public class ExcelExportHelperTest {
 		TestUtility.cleanupParentFolder(file);
 	}
 
+	
+	@Test 
+	public void writeWorkBook_NumberSetForCells_FileWritten() {
+		File file = TestUtility.createValidFile("ParseNumber", "ParseNumberWriteTest.xlsx");
+
+		try {
+			ExcelExportHelper eeh = new ExcelExportHelper(file.getAbsolutePath());
+			
+			EEHSheet sheet = eeh.createSheet("Parse Num Sheet");
+			ArrayList<String> data = new ArrayList<>();
+			data.add("One");
+			data.add("Two");
+			data.add("Three");
+			sheet.getData().add(data);
+
+			data = new ArrayList<>();
+			data.add("Numbers row:");
+			data.add("5");
+			data.add("6");
+			data.add("7.0");
+			data.add("7.1");
+			sheet.getData().add(data);
+
+			data = new ArrayList<>();
+			data.add("Eight");
+			sheet.getData().add(data);
+			
+			data = new ArrayList<>();
+			data.add("Nine 9");
+			data.add("Ten 10.0");
+			data.add("11");
+			data.add("tizenketto");
+			sheet.getData().add(data);
+
+			eeh.writeWorkBook();
+			
+			Assert.assertTrue(file.exists());
+			
+			TestUtility.compareFileToData(eeh, file);
+
+		} catch (EEHException ex) {
+			Assert.fail();
+		}
+		TestUtility.cleanupParentFolder(file);
+	}
 		
 		
 }
