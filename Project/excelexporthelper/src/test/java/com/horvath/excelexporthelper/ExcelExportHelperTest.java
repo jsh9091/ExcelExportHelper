@@ -389,5 +389,46 @@ public class ExcelExportHelperTest {
 		}
 		TestUtility.cleanupParentFolder(file);
 	}
+	
+	@Test 
+	public void writeWorkBook_BooleanSetForCells_FileWritten() {
+		File file = TestUtility.createValidFile("ParseBoolean", "ParseBooleanWriteTest.xlsx");
+
+		try {
+			ExcelExportHelper eeh = new ExcelExportHelper(file.getAbsolutePath());
+			
+			EEHSheet sheet = eeh.createSheet("Parse Boolean Sheet");
+			ArrayList<String> data = new ArrayList<>();
+			data.add("One");
+			data.add("Two");
+			data.add("Three");
+			sheet.getData().add(data);
+
+			data = new ArrayList<>();
+			data.add("True"); // true
+			data.add("TRUE"); // true
+			data.add("true"); // true
+			data.add("False"); // false
+			data.add("FALSE"); // false
+			data.add("False"); // false
+			data.add("  True"); // false
+			data.add("TRUE  "); // false
+			data.add("  true  "); // false
+			data.add("1 True"); // string
+			data.add("TRUE  2 "); // string
+			data.add("1  true  a"); // string
+			sheet.getData().add(data);
+
+			eeh.writeWorkBook();
+			
+			Assert.assertTrue(file.exists());
+			
+			TestUtility.compareFileToData(eeh, file);
+
+		} catch (EEHException ex) {
+			Assert.fail();
+		}
+		TestUtility.cleanupParentFolder(file);
+	}
 			
 }

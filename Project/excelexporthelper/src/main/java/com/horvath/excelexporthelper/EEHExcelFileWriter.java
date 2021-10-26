@@ -121,7 +121,10 @@ final public class EEHExcelFileWriter {
             for (String data : rowData) {
                 Cell cell = row.createCell(colNum++);
             	
-            	if (canParseDouble(data)) {
+                if (data == null) {
+                	continue;
+                	
+            	} else if (canParseDouble(data)) {
         			double num = Double.parseDouble(data);
         			cell.setCellValue(num);
         			
@@ -142,6 +145,10 @@ final public class EEHExcelFileWriter {
             		cell.setCellValue(data);
             		cell.setHyperlink(link);
             		cell.setCellStyle(linkStyle);
+            		
+            	} else if (canParseBoolean(data.trim())) {
+            		boolean bool = Boolean.parseBoolean(data);
+            		cell.setCellValue(bool);
             		
             	} else {
             		// set data in the cell as a string
@@ -202,6 +209,21 @@ final public class EEHExcelFileWriter {
 			canParseUrl = false;
 		}
 		return canParseUrl;
+	}
+	
+	/**
+	 * Determines if the given string value can be 
+	 * parsed to a boolean value or not. 
+	 * @param text String
+	 * @return boolean 
+	 */
+	private boolean canParseBoolean(String text) {
+		boolean canParseBoolean = false;
+
+		if ("true".equalsIgnoreCase(text) || "false".equalsIgnoreCase(text)) {
+			canParseBoolean = true;
+		}
+		return canParseBoolean;
 	}
 
 }

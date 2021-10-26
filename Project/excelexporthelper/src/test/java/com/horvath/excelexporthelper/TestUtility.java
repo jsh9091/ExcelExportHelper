@@ -198,7 +198,8 @@ public class TestUtility {
                 	break;
                 	
                 case BOOLEAN:
-                	// TODO 
+                	boolean bool = Boolean.parseBoolean(data);
+                	Assert.assertEquals(bool, cell.getBooleanCellValue());
                 	break;
                 	
                 case _NONE:
