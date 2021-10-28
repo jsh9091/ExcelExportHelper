@@ -198,7 +198,7 @@ public class TestUtility {
                 	break;
                 	
                 case BOOLEAN:
-                	boolean bool = Boolean.parseBoolean(data);
+                	boolean bool = Boolean.parseBoolean(data.trim());
                 	Assert.assertEquals(bool, cell.getBooleanCellValue());
                 	break;
                 	

@@ -39,18 +39,18 @@ final public class EEHSheet {
 	private List<ArrayList<String>> data;
 	private List<String> headers;
 	
-	public static String EXCEPTION_EMPTY_OR_NULL_SHEETNAME = "Sheet name not be null or empty.";
-	public static String EXCEPTION_MAX_NUMBER_SHEETS_EXCEEDED = "The maximum number of sheets in an Excel file has been exceeded.";
+	public static final String EXCEPTION_EMPTY_OR_NULL_SHEETNAME = "Sheet name not be null or empty.";
+	public static final String EXCEPTION_MAX_NUMBER_SHEETS_EXCEEDED = "The maximum number of sheets in an Excel file has been exceeded.";
 	
 	/**
 	 * The maximum number of sheets allowed in an Excel file.
 	 */
-	public static int MAX_SHEET_COUNT = 255;
+	public static final int MAX_SHEET_COUNT = 255;
 	
 	/**
 	 * The maximum number of characters allowed in a sheet name.
 	 */
-	public static int MAX_NAME_LENGTH = 31;
+	public static final int MAX_NAME_LENGTH = 31;
 	
 	/**
 	 * Constructor for a sheet. 
@@ -95,8 +95,11 @@ final public class EEHSheet {
 				currentSheetNames.add(sheet.getSheetName());
 			}
 			
-			// if the given name is a duplicate, then fix it
-			result = fixDuplicateName(result, currentSheetNames, 1);
+			// if the given name is a duplicate
+			if (currentSheetNames.contains(sheetName)) {
+				// then fix it
+				result = fixDuplicateName(result, currentSheetNames, 1);
+			}
 		}
 		
 		return result;
@@ -112,7 +115,7 @@ final public class EEHSheet {
 	 */
 	private String fixDuplicateName(String sheetName, List<String> currentSheetNames, int count) {
 		// update the name
-		String newName = sheetName + count; // TODO: this seems like a problem, investigate and probably reactor
+		String newName = sheetName + count;
 		
 		// verify that the updated name doesn't already exist in the instance
 		if (currentSheetNames.contains(newName)) {

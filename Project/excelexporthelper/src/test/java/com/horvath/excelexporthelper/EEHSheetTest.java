@@ -170,26 +170,39 @@ public class EEHSheetTest {
 	@Test
 	public void EEHSheet_DuplicateNameX5_NameIncremented() { 
 		
-		final String sheetName = "Dup";
+		final String sheetName = "Duplicate";
 		final int limit = 5;
 		
 		try {
-			List<EEHSheet> sheets = new ArrayList<>(5);
+			List<EEHSheet> sheets = new ArrayList<>(6);
 			
+			// add in a leading sheet with a different name to test an edge case issue
+			EEHSheet sheet1 = new EEHSheet("Sheet A", sheets);
+			sheets.add(sheet1);
+
 			// create five sheets with the same name
 			for (int i = 0; i < limit; i++) {
 				EEHSheet sheet = new EEHSheet(sheetName, sheets);
 				sheets.add(sheet);
 			}
+
+		    // limit plus one to account for "Sheet A"
+			Assert.assertEquals(limit + 1, sheets.size());
 						
-			Assert.assertEquals(limit, sheets.size());
-						
-			// verify that the names of the sheets after the first one have incremented names
+			// verify that the names of the sheets after the first "Duplicate" have incremented names
 			for (int i = 0; i < sheets.size(); i++) {
 				if (i == 0) {
+					// check "Sheet A"
+					Assert.assertEquals(sheet1.getSheetName(), sheets.get(i).getSheetName());
+					
+				} else if (i == 1) {
+					// this "Duplicate" sheet does not have an updated name because it is first 
 					Assert.assertEquals(sheetName, sheets.get(i).getSheetName());
+					
 				} else {
-					Assert.assertEquals(sheetName + i, sheets.get(i).getSheetName());
+					// sheets in this else condition should have updated names
+					// minus one off of i to account for "Sheet A"
+					Assert.assertEquals(sheetName + (i - 1), sheets.get(i).getSheetName());
 				}
 			}
 			

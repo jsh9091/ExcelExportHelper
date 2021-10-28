@@ -77,9 +77,6 @@ final public class EEHExcelFileWriter {
         	createSheet(eehSheet, workbook);
         }
         
-        // TODO sheet data method needs to be forward thinking to be expanded 
-        // for different data types when putting in cell data is a thing
-        
         // perform file writing operations 
         generateFile(workbook);
 	}
@@ -147,7 +144,7 @@ final public class EEHExcelFileWriter {
             		cell.setCellStyle(linkStyle);
             		
             	} else if (canParseBoolean(data.trim())) {
-            		boolean bool = Boolean.parseBoolean(data);
+            		boolean bool = Boolean.parseBoolean(data.trim());
             		cell.setCellValue(bool);
             		
             	} else {

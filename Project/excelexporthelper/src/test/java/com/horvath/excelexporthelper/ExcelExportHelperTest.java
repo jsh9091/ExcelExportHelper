@@ -411,9 +411,9 @@ public class ExcelExportHelperTest {
 			data.add("False"); // false
 			data.add("FALSE"); // false
 			data.add("False"); // false
-			data.add("  True"); // false
-			data.add("TRUE  "); // false
-			data.add("  true  "); // false
+			data.add("  True"); // true
+			data.add("TRUE  "); // true
+			data.add("  true  "); // true
 			data.add("1 True"); // string
 			data.add("TRUE  2 "); // string
 			data.add("1  true  a"); // string
