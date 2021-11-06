@@ -154,6 +154,15 @@ final public class EEHExcelFileWriter {
             }
 		}
 		
+		// determine the largest number of columns in the current sheet
+		int maxCol = findLargestColumnCount(eehSheet);
+		
+		// automatically size our columns for best visual fit
+		for (int i = 0; i < maxCol; i++) {
+			// Note: this action can have a negative speed performance impact
+			xssfSheet.autoSizeColumn(i);
+			
+		}
 	}
 	
 	/**
@@ -223,4 +232,26 @@ final public class EEHExcelFileWriter {
 		return canParseBoolean;
 	}
 
+	/**
+	 * Returns the largest column number of any row within the given sheet.
+	 * @param eehSheet EEHSheet
+	 * @return int 
+	 */
+	private int findLargestColumnCount(EEHSheet eehSheet) {
+		
+		int max = 0;
+		// cycle over the body data of the sheet
+		for (int i = 0; i < eehSheet.getData().size() ; i++){
+			int rowColumnCount =  eehSheet.getData().get(i).size();
+			// check if the current row of data has a larger number columns
+		    if ( max < rowColumnCount) {
+		        max = rowColumnCount;
+		    }
+		}
+		
+		// if the number of header columns is greater than the number of columns in any of the data rows
+		max = max > eehSheet.getHeaders().size() ? max : eehSheet.getHeaders().size();
+		
+		return max;
+	}
 }
