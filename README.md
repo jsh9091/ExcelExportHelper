@@ -57,17 +57,3 @@ After the EEH instance has been populated with sheet data, call the writeWorkBoo
 To load the EEH library:
 
 For the Excel Export Helper library to work, the Apache POI 5.0.0 library must be loaded in your project. 
-
-Include the follow dependency into your maven pom.xml file:
-
-<dependency>
-<groupId>org.apache.poi</groupId>
-<artifactId>poi-ooxml</artifactId>
-<version>5.0.0</version>
-</dependency>
-
-Or download the jar files from the following website and load them into your class path:
-
-https://jar-download.com/artifacts/org.apache.poi
-
-
