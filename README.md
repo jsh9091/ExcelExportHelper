@@ -6,7 +6,7 @@ Excel Export Helper (EEH) is a Java library that is used to easily output applic
 
 Technical Information:
 * The EEH was written in Java 8
-* The EEH uses Apache POI 5.0.0
+* The EEH uses Apache POI 5.2.5
 
 Quick Start
 
