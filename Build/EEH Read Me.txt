@@ -5,7 +5,7 @@ Include the follow dependency into your maven pom.xml file:
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi-ooxml</artifactId>
-			<version>5.0.0</version>
+			<version>5.2.5</version>
 		</dependency>
 
 Or download the jar files from the following website and load them into your class path:
